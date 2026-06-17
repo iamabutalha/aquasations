@@ -1,8 +1,8 @@
-import logger from '#config/logger.js';
-import bcrypt from 'bcrypt';
-import { eq } from 'drizzle-orm';
-import { db } from '#config/database.js';
-import { users } from '#models/user.model.js';
+import logger from "#config/logger.js";
+import bcrypt from "bcrypt";
+import { eq } from "drizzle-orm";
+import { db } from "#config/database.js";
+import { users } from "#models/user.model.js";
 export const hashPassword = async password => {
   try {
     const saltRounds = Number(
@@ -10,13 +10,13 @@ export const hashPassword = async password => {
     );
 
     if (!Number.isInteger(saltRounds) || saltRounds < 1) {
-      throw new Error('Invalid bcrypt salt rounds');
+      throw new Error("Invalid bcrypt salt rounds");
     }
 
     return await bcrypt.hash(password, saltRounds);
   } catch (error) {
     logger.error(`Error Hashing password ${error}`);
-    throw new Error('Error hashing');
+    throw new Error("Error hashing");
   }
 };
 export const comparePassword = async (password, hashedPassword) => {
@@ -24,7 +24,7 @@ export const comparePassword = async (password, hashedPassword) => {
     return await bcrypt.compare(password, hashedPassword);
   } catch (error) {
     logger.error(`Error comparing password ${error}`);
-    throw new Error('Error comparing password');
+    throw new Error("Error comparing password");
   }
 };
 
@@ -37,7 +37,7 @@ export const createUser = async ({ name, email, password, role }) => {
       .limit(1);
 
     if (existingUser.length > 0) {
-      throw new Error('User already exists');
+      throw new Error("User already exists");
     }
 
     const password_hash = await hashPassword(password);
@@ -58,7 +58,7 @@ export const createUser = async ({ name, email, password, role }) => {
     return newUser;
   } catch (error) {
     logger.error(`Error creating the user ${error}`);
-    throw new Error('Error creating user');
+    throw new Error("Error creating user");
   }
 };
 
@@ -71,13 +71,13 @@ export const authenticateUser = async (email, password) => {
       .limit(1);
 
     if (!existingUser) {
-      throw new Error('User not found');
+      throw new Error("User not found");
     }
 
     const isValidPassword = await comparePassword(password, existingUser.password);
 
     if (!isValidPassword) {
-      throw new Error('Invalid credentials');
+      throw new Error("Invalid credentials");
     }
 
     return {
@@ -90,14 +90,14 @@ export const authenticateUser = async (email, password) => {
   } catch (error) {
     logger.error(`Error authenticating user ${error}`);
 
-    if (error.message === 'User not found') {
+    if (error.message === "User not found") {
       throw error;
     }
 
-    if (error.message === 'Invalid credentials') {
+    if (error.message === "Invalid credentials") {
       throw error;
     }
 
-    throw new Error('Error authenticating user');
+    throw new Error("Error authenticating user");
   }
 };
