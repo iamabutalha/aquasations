@@ -51,7 +51,7 @@ export const securityMiddleware = async (req, res, next) => {
         userAgent: req.get('User-Agent'),
         path: req.path,
         method: req.method,
-      });
+    j  });
       res.status(403).json({
         error: 'Forbidden',
         message: 'Request blocked by security policy',

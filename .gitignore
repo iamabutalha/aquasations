@@ -1,2 +1,7 @@
 node_modules
 .env.*
+.neon_local/
+logs/
+.neon_local/
+.neon_local/
+.neon_local/

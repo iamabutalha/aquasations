@@ -15,7 +15,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js",
     "dev": "node --watch src/index.js",
+    "dev:docker": "powershell -ExecutionPolicy Bypass -File ./scripts/dev.ps1",
+    "prod:docker": "powershell -ExecutionPolicy Bypass -File ./scripts/prod.ps1",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
