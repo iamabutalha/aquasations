@@ -1,20 +1,19 @@
-import { fetchAllUsers } from '#controllers/user.controller.js';
-import express from 'express';
+import {
+  deleteUser,
+  fetchAllUsers,
+  getUserById,
+  updateUser,
+} from "#controllers/user.controller.js";
+import express from "express";
 
 const router = express.Router();
 
-router.get('/', fetchAllUsers);
+router.get("/", fetchAllUsers);
 
-router.get('/:id', (req, res) => {
-  res.send('GET /users:/id');
-});
+router.get("/:id", getUserById);
 
-router.put('/', (req, res) => {
-  res.send('PUT /users/:id');
-});
+router.put("/:id", updateUser);
 
-router.delete('/', (req, res) => {
-  res.send('GET /users/:id');
-});
+router.delete("/:id", deleteUser);
 
 export default router;
