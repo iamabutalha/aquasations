@@ -15,7 +15,7 @@
     "#utils/*": "./src/utils/*"
   },
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
     "dev:docker": "powershell -ExecutionPolicy Bypass -File ./scripts/dev.ps1",

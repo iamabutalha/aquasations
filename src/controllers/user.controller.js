@@ -5,7 +5,10 @@ import {
   getUserById as getUserByIdService,
   updateUser as updateUserService,
 } from "#services/user.service.js";
-import { userIdSchema, updateUserSchema } from "#validations/users.validation.js";
+import {
+  userIdSchema,
+  updateUserSchema,
+} from "#validations/users.validation.js";
 import { formatValidationsError } from "#utils/format.js";
 import { cookies } from "#utils/cookies.js";
 import { jwtToken } from "#utils/jwt.js";
@@ -102,7 +105,9 @@ export const updateUser = async (req, res, next) => {
     const updates = { ...bodyValidationResult.data };
 
     if (updates.role && authUser.role !== "admin") {
-      return res.status(403).json({ error: "Only admins can update user roles" });
+      return res
+        .status(403)
+        .json({ error: "Only admins can update user roles" });
     }
 
     const user = await updateUserService(id, updates);
@@ -114,7 +119,10 @@ export const updateUser = async (req, res, next) => {
   } catch (error) {
     logger.error("Update user error", error);
 
-    if (error.message === "Unauthorized" || error.message === "Error verifying JWT token") {
+    if (
+      error.message === "Unauthorized" ||
+      error.message === "Error verifying JWT token"
+    ) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
@@ -159,7 +167,10 @@ export const deleteUser = async (req, res, next) => {
   } catch (error) {
     logger.error("Delete user error", error);
 
-    if (error.message === "Unauthorized" || error.message === "Error verifying JWT token") {
+    if (
+      error.message === "Unauthorized" ||
+      error.message === "Error verifying JWT token"
+    ) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 

@@ -1,5 +1,5 @@
 export const cookies = {
-  getOptions: req => ({
+  getOptions: _req => ({
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",

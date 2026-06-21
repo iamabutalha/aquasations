@@ -4,7 +4,7 @@ services:
     image: neondatabase/neon_local:latest
     container_name: acquisition-neon-local
     ports:
-      - '5432:5432'
+      - "5432:5432"
     env_file:
       - .env.development
     volumes:
@@ -14,7 +14,7 @@ services:
     networks:
       - acquisition-network
     healthcheck:
-      test: ['CMD', 'pg_isready', '-h', 'localhost', '-p', '5432', '-U', 'neon']
+      test: ["CMD", "pg_isready", "-h", "localhost", "-p", "5432", "-U", "neon"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -28,7 +28,7 @@ services:
       target: development
     container_name: acquisition-app-dev
     ports:
-      - '3000:3000'
+      - "3000:3000"
     env_file:
       - .env.development
     volumes:
@@ -48,9 +48,9 @@ services:
     healthcheck:
       test:
         [
-          'CMD',
-          'node',
-          '-e',
+          "CMD",
+          "node",
+          "-e",
           "const http = require('http'); const req = http.request({hostname: 'localhost', port: 3000, path: '/health'}, (res) => process.exit(res.statusCode === 200 ? 0 : 1)); req.on('error', () => process.exit(1)); req.end();",
         ]
       interval: 30s

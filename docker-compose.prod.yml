@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   # Application Service for Production
@@ -9,7 +9,7 @@ services:
       target: production
     container_name: acquisition-app-prod
     ports:
-      - '3000:3000'
+      - "3000:3000"
     env_file:
       - .env.production
     networks:
@@ -18,9 +18,9 @@ services:
     healthcheck:
       test:
         [
-          'CMD',
-          'node',
-          '-e',
+          "CMD",
+          "node",
+          "-e",
           "const http = require('http'); const req = http.request({hostname: 'localhost', port: 3000, path: '/health'}, (res) => process.exit(res.statusCode === 200 ? 0 : 1)); req.on('error', () => process.exit(1)); req.end();",
         ]
       interval: 30s
@@ -31,20 +31,20 @@ services:
       resources:
         limits:
           memory: 512M
-          cpus: '0.5'
+          cpus: "0.5"
         reservations:
           memory: 256M
-          cpus: '0.25'
+          cpus: "0.25"
       restart_policy:
         condition: on-failure
         delay: 5s
         max_attempts: 3
         window: 120s
     logging:
-      driver: 'json-file'
+      driver: "json-file"
       options:
-        max-size: '10m'
-        max-file: '3'
+        max-size: "10m"
+        max-file: "3"
 
 networks:
   acquisition-production:
